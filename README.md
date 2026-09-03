@@ -61,6 +61,34 @@ With only Command Line Tools you can still syntax-check, though not type-check:
 find . -name '*.swift' -exec swiftc -parse {} \;
 ```
 
+## Screens
+
+Captured by driving the app, not staged: `UITests/AppScreenshots.swift` produces
+every image below, so a screenshot that stops matching the app is a failing test
+rather than a stale file nobody noticed. Regenerate with
+`make uitest-screenshots`.
+
+| | | |
+|---|---|---|
+| ![Launch](Screenshots/01-launch.png) | ![Map](Screenshots/02-map.png) | ![Card](Screenshots/03-card-peek.png) |
+| **Launch moment.** Plays once per install and hands off on map-ready. | **The free surface.** Exact pins with a floor price, clusters reporting rentals, three readable buildings over blurred bars. | **The card, peeked.** One thumbnail, the full range, and a locked row naming what is withheld. |
+| ![Card expanded](Screenshots/04-card-expanded.png) | ![Wall](Screenshots/05-signup-wall.png) | ![Detail](Screenshots/07-unlocked-detail.png) |
+| **The card, expanded.** Three photos. Tapping anywhere here is the gate. | **The wall.** Names the building, and promises only what is actually delivered. | **The reward.** Rent by unit, move-in dates, the exact address. |
+| ![Explainer](Screenshots/08-location-explainer.png) | ![Recovery](Screenshots/09-location-recovery.png) | ![Reduced](Screenshots/10-reduced-precision.png) |
+| **Our explainer, over the map.** Shown before the system prompt, because iOS asks once. | **After a denial.** The only route back, naming the exact Settings path. | **Precision withheld.** Says so rather than implying exactness. |
+
+Two states worth looking at specifically:
+
+**Nothing withheld** ([11](Screenshots/11-nothing-withheld.png)) — filter to a
+neighborhood with fewer results than the free row count and the gate disappears
+entirely. Offering to unlock what is already visible reads as a lie the renter
+can see through.
+
+**Dark mode** ([map](Screenshots/dark-02-map.png),
+[wall](Screenshots/dark-05-signup-wall.png),
+[detail](Screenshots/dark-07-unlocked-detail.png)) — every colour is defined for
+both appearances at the point of definition, including the basemap.
+
 ## Architecture
 
 ```

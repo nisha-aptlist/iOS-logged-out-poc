@@ -22,7 +22,7 @@ UITEST_TYPE := com.apple.CoreSimulator.SimDeviceType.iPhone-17-Pro
 BUNDLE := com.apartmentlist.prototype.map
 APP := .build/app/Build/Products/Debug-iphonesimulator/ApartmentListMap.app
 
-.PHONY: project build test uitest uitest-device run screenshot clean
+.PHONY: project build test uitest uitest-device uitest-screenshots run screenshot clean
 
 project:
 	xcodegen generate
@@ -84,6 +84,18 @@ uitest: project uitest-device
 	  -resultBundlePath $(BUNDLE_PATH) \
 	  -only-testing:ApartmentListMapUITests/PresentationTests test > .build/uitest-$(RUN_ID).log 2>&1
 	@python3 Scripts/check-uitest.py $(UITEST_COUNT) .build/uitest-$(RUN_ID).log
+	@xcrun simctl delete '$(UITEST_DEVICE)' > /dev/null 2>&1 || true
+
+# Regenerates every image in Screenshots/ by driving the app.
+uitest-screenshots: project uitest-device
+	@rm -rf /tmp/al-shots
+	-@xcodebuild -project ApartmentListMap.xcodeproj -scheme ApartmentListMap \
+	  -destination 'platform=iOS Simulator,name=$(UITEST_DEVICE)' -derivedDataPath .build/shots \
+	  -only-testing:ApartmentListMapUITests/AppScreenshots test > .build/shots-$(RUN_ID).log 2>&1
+	@count=$$(ls /tmp/al-shots/*.png 2>/dev/null | wc -l | tr -d ' '); \
+	if [ "$$count" = "0" ]; then echo "FAIL: no screenshots produced"; tail -20 .build/shots-$(RUN_ID).log; exit 1; fi; \
+	cp /tmp/al-shots/*.png Screenshots/; \
+	echo "wrote $$count screenshots to Screenshots/"
 	@xcrun simctl delete '$(UITEST_DEVICE)' > /dev/null 2>&1 || true
 
 clean:
