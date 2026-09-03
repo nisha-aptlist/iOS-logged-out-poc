@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>CFBundleDevelopmentRegion</key>
+  <string>en</string>
+  <key>CFBundleExecutable</key>
+  <string>$(EXECUTABLE_NAME)</string>
+  <key>CFBundleIdentifier</key>
+  <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+  <key>CFBundleInfoDictionaryVersion</key>
+  <string>6.0</string>
+  <key>CFBundleName</key>
+  <string>$(PRODUCT_NAME)</string>
+  <key>CFBundleDisplayName</key>
+  <string>Apartment List</string>
+  <key>CFBundlePackageType</key>
+  <string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
+  <key>CFBundleShortVersionString</key>
+  <string>0.1.0</string>
+  <key>CFBundleVersion</key>
+  <string>1</string>
+
+  <!-- Without this the app runs letterboxed in compatibility mode. -->
+  <key>UILaunchScreen</key>
+  <dict/>
+
+  <key>UISupportedInterfaceOrientations</key>
+  <array>
+    <string>UIInterfaceOrientationPortrait</string>
+  </array>
+
+  <!-- The one line of the system location alert that is ours to write. Names
+       the benefit, not the mechanism: "determine your location" converts worse
+       than telling a renter what they get. -->
+  <key>NSLocationWhenInUseUsageDescription</key>
+  <string>Shows rentals near you and how far each one is from where you are.</string>
+
+  <!-- Demo switches, read by AppConfiguration. Set both false for a build that
+       behaves like the real product. -->
+  <key>ALUsesStubLocation</key>
+  <true/>
+  <key>ALLoopsLaunchMoment</key>
+  <true/>
+</dict>
+</plist>

@@ -1,0 +1,20 @@
+# Generated: `xcodegen generate` recreates it from project.yml, which is the
+# reviewable source of truth.
+ApartmentListMap.xcodeproj/
+
+# Build products and test artefacts
+.build/
+*.xcresult
+*.log
+
+# Local scratch
+.simdevice
+.parked/
+
+# Xcode per-user state (window layout, breakpoints, selected scheme)
+.swiftpm/
+*.xcuserstate
+*.xcuserdatad/
+xcuserdata/
+*.xcworkspace/xcshareddata/
+.DS_Store
